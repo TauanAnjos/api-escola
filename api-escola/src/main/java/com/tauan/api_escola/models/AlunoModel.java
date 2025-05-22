@@ -1,5 +1,6 @@
 package com.tauan.api_escola.models;
 
+import com.tauan.api_escola.rest.dtos.AlunoDtoResponse;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
@@ -71,5 +72,9 @@ public class AlunoModel {
     @Override
     public int hashCode() {
         return Objects.hash(id, nome, sexo, dt_nascimento);
+    }
+
+    public AlunoDtoResponse toDtoResponse() {
+        return new AlunoDtoResponse(this.id,this.nome,this.sexo,this.dt_nascimento);
     }
 }
