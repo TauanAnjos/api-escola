@@ -1,5 +1,6 @@
 package com.tauan.api_escola.models;
 
+import com.tauan.api_escola.rest.dtos.ProfessorDtoResponse;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
@@ -106,5 +107,8 @@ public class ProfessorModel {
     @Override
     public int hashCode() {
         return Objects.hash(id, titulo, nome, sexo, estado_civil, dt_nascimento, telefone);
+    }
+    public ProfessorDtoResponse toDtoResponse(){
+        return new ProfessorDtoResponse(this.id,this.titulo,this.nome,this.sexo,this.estado_civil,this.dt_nascimento,this.telefone);
     }
 }
