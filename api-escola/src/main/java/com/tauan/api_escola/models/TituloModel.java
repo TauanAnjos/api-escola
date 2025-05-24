@@ -1,5 +1,6 @@
 package com.tauan.api_escola.models;
 
+import com.tauan.api_escola.rest.dtos.TituloDtoResponse;
 import jakarta.persistence.*;
 
 import java.util.Objects;
@@ -48,5 +49,9 @@ public class TituloModel {
     @Override
     public int hashCode() {
         return Objects.hash(id, descricao);
+    }
+
+    public TituloDtoResponse toDtoResponse() {
+        return new TituloDtoResponse(this.id,this.descricao);
     }
 }
