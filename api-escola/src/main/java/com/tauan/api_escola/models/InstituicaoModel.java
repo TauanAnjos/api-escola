@@ -1,5 +1,6 @@
 package com.tauan.api_escola.models;
 
+import com.tauan.api_escola.rest.dtos.InstituicaoDtoResponse;
 import jakarta.persistence.*;
 
 import java.util.Objects;
@@ -59,5 +60,9 @@ public class InstituicaoModel {
     @Override
     public int hashCode() {
         return Objects.hash(id, sigla, descricao);
+    }
+
+    public InstituicaoDtoResponse toDtoResponse() {
+        return new InstituicaoDtoResponse(this.id,this.sigla,this.descricao);
     }
 }
