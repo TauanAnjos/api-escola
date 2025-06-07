@@ -1,5 +1,6 @@
 package com.tauan.api_escola.models;
 
+import com.tauan.api_escola.rest.dtos.TipoCursoDtoResponse;
 import jakarta.persistence.*;
 
 import java.util.Objects;
@@ -48,5 +49,9 @@ public class TipoCursoModel {
     @Override
     public int hashCode() {
         return Objects.hash(id, descricao);
+    }
+
+    public TipoCursoDtoResponse toDtoResponse() {
+        return new TipoCursoDtoResponse(this.id,this.descricao);
     }
 }
