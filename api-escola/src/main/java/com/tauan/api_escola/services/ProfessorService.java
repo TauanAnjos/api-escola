@@ -1,7 +1,9 @@
 package com.tauan.api_escola.services;
 
 import com.tauan.api_escola.models.ProfessorModel;
+import com.tauan.api_escola.models.TituloModel;
 import com.tauan.api_escola.repositories.ProfessorRepository;
+import com.tauan.api_escola.repositories.TituloRepository;
 import com.tauan.api_escola.rest.dtos.ProfessorDtoRequest;
 import com.tauan.api_escola.rest.dtos.ProfessorDtoResponse;
 import org.springframework.beans.BeanUtils;
@@ -12,12 +14,15 @@ import org.springframework.stereotype.Service;
 public class ProfessorService {
     @Autowired
     private ProfessorRepository professorRepository;
+    @Autowired
+    private TituloRepository tituloRepository;
 
     public ProfessorDtoResponse criarProfessor(ProfessorDtoRequest professorDtoRequest){
         if (professorDtoRequest == null){
             throw new RuntimeException("Dados do professor são obrigatorios.");
         }
-        ProfessorModel professorSalvo =  professorRepository.save(professorDtoRequest.toModel());
+        TituloModel titulo = tituloRepository.findById(professorDtoRequest.titulo()).orElseThrow(() -> new RuntimeException("Titulo não encontrado"));
+        ProfessorModel professorSalvo =  professorRepository.save(professorDtoRequest.toModel(titulo));
         return professorSalvo.toDtoResponse();
     }
     public ProfessorDtoResponse buscarProfessor(Long idProfessor) {
