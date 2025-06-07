@@ -1,5 +1,6 @@
 package com.tauan.api_escola.models;
 
+import com.tauan.api_escola.rest.dtos.CursaDtoResponse;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
@@ -27,8 +28,38 @@ public class CursaModel {
     private boolean aprovado;
     @Embeddable
     public static class CursaId implements Serializable {
+        @Column(name = "id_aluno")
         private Integer id_aluno;
+        @Column(name = "id_disciplina")
         private Integer id_disciplina;
+        public Integer getId_aluno() {
+            return id_aluno;
+        }
+
+        public void setId_aluno(Integer id_aluno) {
+            this.id_aluno = id_aluno;
+        }
+
+        public Integer getId_disciplina() {
+            return id_disciplina;
+        }
+
+        public void setId_disciplina(Integer id_disciplina) {
+            this.id_disciplina = id_disciplina;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            CursaId cursaId = (CursaId) o;
+            return Objects.equals(id_aluno, cursaId.id_aluno) && Objects.equals(id_disciplina, cursaId.id_disciplina);
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(id_aluno, id_disciplina);
+        }
     }
 
     public CursaModel() {
@@ -120,5 +151,9 @@ public class CursaModel {
     @Override
     public int hashCode() {
         return Objects.hash(id, ano, semestre, faltas, nota1, nota2, nota3, aprovado);
+    }
+
+    public CursaDtoResponse toDtoResponse(){
+        return new CursaDtoResponse(this.id,this.ano,this.semestre,this.faltas,this.nota1,this.nota2,this.nota3,this.aprovado);
     }
 }
